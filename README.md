@@ -73,6 +73,8 @@ The security design was intentional. Tokens are generated with `os.urandom(32)`,
 
 At the database layer, I added email-verification state to users as well as dedicated `email_verification_tokens` and `password_reset_tokens` tables, including appropriate relationships and indexes. This was a clear example of why authentication work cannot stop at frontend forms: secure token lifecycle, database design, rate limiting, migration behavior, and failure states are all part of the feature.
 
+![Placeholder for email verification or password recovery screenshot](/gsoc-placeholders/auth-flow-placeholder.png)
+
 ### 3. Fixing the production migration path
 
 After introducing the email-verification schema, I found and fixed a production issue: the remote Cloudflare D1 database did not yet have the required schema. [PR #64: Fix production auth failures by applying email verification migration](https://github.com/alphaonelabs/learn/pull/64) added the missing migration configuration.
@@ -97,6 +99,8 @@ I also improved navbar loading and synchronization. Shared layout fragments are 
 
 The PR includes a dedicated profile API test suite covering authenticated profile operations, account deletion, upload/remove behavior, public directory access, visibility controls, and both R2-backed and fallback avatar paths.
 
+![Placeholder for Learn profile or dashboard screenshot](/gsoc-placeholders/learn-profile-placeholder.png)
+
 ### 5. Interactive graphing calculator
 
 [PR #68: Add Interactive Graphing Calculator Page](https://github.com/alphaonelabs/learn/pull/68) rebuilt the calculator into an interactive browser-based learning tool. The change contains **1,101 additions and 591 deletions**.
@@ -104,6 +108,8 @@ The PR includes a dedicated profile API test suite covering authenticated profil
 The calculator is powered by Math.js and supports trigonometric, logarithmic, exponential, square-root, absolute-value, constant, power, and standard arithmetic expressions. It renders equations on a Cartesian canvas and supports multiple equations, per-equation visibility, color cycling, live editing, debounced updates, validation feedback, and built-in learning examples such as parabolas, sine waves, circles, tangents, logarithms, and exponentials.
 
 I implemented interaction methods appropriate for both desktop and mobile: mouse-wheel zoom, drag pan, touch pinch zoom, keyboard controls, coordinate hover information, fullscreen mode, grid settings, dark-mode support, and PNG export. I also manually verified graph rendering, invalid-expression handling, responsive behavior, examples, and export workflows.
+
+![Placeholder for graphing calculator screenshot](/gsoc-placeholders/graphing-calculator-placeholder.png)
 
 ### 6. About, Terms, and Feedback platform surfaces
 
@@ -137,6 +143,8 @@ The delivered survey system supports:
 
 Privacy was part of the design: free-text survey answers are encrypted with AES before storage, consistent with the platform’s feedback-message handling. The original survey work also included comprehensive test coverage for permission boundaries, visibility, creation and submission validation, duplicate response behavior, analytics, deletion, and CSV export.
 
+![Placeholder for survey creation or analytics screenshot](/gsoc-placeholders/surveys-placeholder.png)
+
 ## Open work awaiting upstream merge
 
 ### Stripe donations and recurring support
@@ -151,6 +159,8 @@ The backend provides endpoints for configuration, statistics, recent donations, 
 
 This PR still needs review and merge, and deployment requires the relevant Stripe and Mailgun environment variables. I am deliberately reporting it as open rather than claiming it is live.
 
+![Placeholder for Stripe donation screenshot](/gsoc-placeholders/donations-placeholder.png)
+
 ### Virtual World: a deployable 3D learning foundation
 
 [PR #1: Initial virtual world project setup](https://github.com/alphaonelabs/virtual/pull/1) is open in the Virtual World repository. It introduces **3,865 lines across 22 files**.
@@ -161,6 +171,8 @@ The initial 3D experience includes a Three.js scene, first-person controls, port
 
 The result is a real deployable starting point: users can authenticate, enter the environment, move through it, interact with portals, and access activities. The next engineering phase is to add CI, automated tests, and multi-user behavior. Features such as shared whiteboards and classrooms require real-time synchronization and a clear concurrency model; they should be designed deliberately rather than bolted onto a single-user scene.
 
+![Placeholder for Virtual World screenshot](/gsoc-placeholders/virtual-world-placeholder.png)
+
 ### ScholarAI: an AI-assisted research workflow
 
 [PR #2: Project setup](https://github.com/alphaonelabs/scholarai/pull/2) is the open initial application PR for ScholarAI (**1,619 additions and 2 deletions across 7 files**). I built a Cloudflare Python Worker that exposes AI-backed capabilities for asking questions, paper summarization, literature discovery, and literature-review generation. The Worker includes input validation, CORS behavior, error responses, health checks, frontend serving, and static-asset fallback handling.
@@ -170,6 +182,8 @@ The frontend supports PDF upload, browser-side text extraction, tabbed research 
 I also opened [PR #3: repository workflows](https://github.com/alphaonelabs/scholarai/pull/3), adding a pull-request template, a peer-review reminder workflow, and PR-title validation through GitHub Actions. These repository practices are important for a project that needs to be maintained by more than one contributor: clear PR descriptions, consistent titles, and review discipline make future changes easier to evaluate.
 
 The ScholarAI PR needs its planned final update before merge. The foundation is working, but I consider the next stage-review, refinement, tests, and user feedback-essential before describing it as complete.
+
+![Placeholder for ScholarAI screenshot](/gsoc-placeholders/scholarai-placeholder.png)
 
 ## Current status and next steps
 
