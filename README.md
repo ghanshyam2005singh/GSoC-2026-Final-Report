@@ -6,7 +6,7 @@ Date: "2026-08-16"
 
 Google Summer of Code 2026 was an opportunity for me to contribute to Alpha One Labs as an engineer working across product features, platform security, data migrations, payments, testing, and greenfield project setup.
 
-My primary project was [Learn](https://github.com/alphaonelabs/learn), Alpha One Labs' encrypted learning platform. During the coding period I also established working foundations for [Virtual World](https://github.com/alphaonelabs/virtual), an interactive 3D learning environment, and [ScholarAI](https://github.com/alphaonelabs/scholarai), an AI-assisted research tool.
+My primary project was [Learn](https://github.com/alphaonelabs/website/tree/main/learn), Alpha One Labs' encrypted learning platform. During the coding period I also established working foundations for [Virtual World](https://github.com/alphaonelabs/website/tree/main/virtual), an interactive 3D learning environment, and [ScholarAI](https://github.com/alphaonelabs/website/tree/main/scholarai), an AI-assisted research tool.
 
 This report is intended to be a technical record of the work. It links directly to the upstream pull requests, explains the architecture and product decisions behind them, distinguishes merged work from open work, and documents the next steps honestly.
 
@@ -50,7 +50,7 @@ The additional projects introduced their own stacks. Virtual World is a TypeScri
 
 ### 1. Product UI and authenticated navigation
 
-My first merged contribution was [PR #19: update pages according to the old website color scheme and design](https://github.com/alphaonelabs/learn/pull/19). This was a significant UI refresh: **3,259 additions and 1,051 deletions across 10 files**.
+My first merged contribution was [PR #19: update pages according to the old website color scheme and design](https://github.com/alphaonelabs/website/commit/2bd020d8d41e111f7cedb5a2deb1d2cbac262cfb). This was a significant UI refresh: **3,259 additions and 1,051 deletions across 10 files**.
 
 I rebuilt core public and authenticated experiences around the project’s teal visual system, including the landing page, dashboard, teaching page, navigation, footer, and a profile experience. This was more than a visual change. The navigation became aware of client-side authentication state, rendering sign-in actions for unauthenticated users and an identity-aware profile menu for signed-in users. It also included responsive mobile navigation, logout cleanup, profile/dashboard navigation, activity rendering states, and safer handling of incomplete activity data.
 
@@ -58,7 +58,7 @@ This PR taught me an important product lesson early in the project: a design ref
 
 ### 2. Secure email verification and password recovery
 
-[PR #62: Implement email verification and password recovery with Mailgun](https://github.com/alphaonelabs/learn/pull/62) was one of the most security-sensitive parts of my GSoC work. It added **1,099 lines across 9 files** and turned account recovery into a complete, production-oriented workflow.
+[PR #62: Implement email verification and password recovery with Mailgun](https://github.com/alphaonelabs/website/commit/c520298ac7056748cb23e1798490353e2d43f0a8) was one of the most security-sensitive parts of my GSoC work. It added **1,099 lines across 9 files** and turned account recovery into a complete, production-oriented workflow.
 
 The implementation included:
 
@@ -77,7 +77,7 @@ At the database layer, I added email-verification state to users as well as dedi
 
 ### 3. Fixing the production migration path
 
-After introducing the email-verification schema, I found and fixed a production issue: the remote Cloudflare D1 database did not yet have the required schema. [PR #64: Fix production auth failures by applying email verification migration](https://github.com/alphaonelabs/learn/pull/64) added the missing migration configuration.
+After introducing the email-verification schema, I found and fixed a production issue: the remote Cloudflare D1 database did not yet have the required schema. [PR #64: Fix production auth failures by applying email verification migration](https://github.com/alphaonelabs/website/commit/cfdd444d6fd1b912f58f823b3584000f67679bc8) added the missing migration configuration.
 
 Although it is a small PR (**27 lines in one file**), it was a crucial deployment fix. The migration adds the verification column and token tables to D1 and marks legacy users as verified so existing accounts keep access. It also made the separation between local schema initialization and production migration sequencing much cleaner.
 
@@ -85,7 +85,7 @@ This was one of the most valuable lessons of the project: a feature that works i
 
 ### 4. Profiles, public discovery, avatars, and test coverage
 
-[PR #65: Added profile page, avatar handling, navbar synchronization and tests](https://github.com/alphaonelabs/learn/pull/65) added **1,485 lines across 12 files**. It moved Learn toward a real user community rather than a collection of isolated accounts.
+[PR #65: Added profile page, avatar handling, navbar synchronization and tests](https://github.com/alphaonelabs/website/commit/f3f9f3bd79c8a07edaa639bd808066d1c7de4e93) added **1,485 lines across 12 files**. It moved Learn toward a real user community rather than a collection of isolated accounts.
 
 The profile system lets a user edit their bio, social usernames, expertise tags, profile visibility, and teacher/public-profile settings. I added public-profile pages and a searchable member directory that exposes only profiles users explicitly mark public. The APIs enforce visibility behavior, including a protected response for private profiles.
 
@@ -103,7 +103,7 @@ The PR includes a dedicated profile API test suite covering authenticated profil
 
 ### 5. Interactive graphing calculator
 
-[PR #68: Add Interactive Graphing Calculator Page](https://github.com/alphaonelabs/learn/pull/68) rebuilt the calculator into an interactive browser-based learning tool. The change contains **1,101 additions and 591 deletions**.
+[PR #68: Add Interactive Graphing Calculator Page](https://github.com/alphaonelabs/website/commit/448081f99b3346dea6286b9f79ac162d693bc042) rebuilt the calculator into an interactive browser-based learning tool. The change contains **1,101 additions and 591 deletions**.
 
 The calculator is powered by Math.js and supports trigonometric, logarithmic, exponential, square-root, absolute-value, constant, power, and standard arithmetic expressions. It renders equations on a Cartesian canvas and supports multiple equations, per-equation visibility, color cycling, live editing, debounced updates, validation feedback, and built-in learning examples such as parabolas, sine waves, circles, tangents, logarithms, and exponentials.
 
@@ -113,7 +113,7 @@ I implemented interaction methods appropriate for both desktop and mobile: mouse
 
 ### 6. About, Terms, and Feedback platform surfaces
 
-[PR #70: add about, terms, and feedback pages](https://github.com/alphaonelabs/learn/pull/70) added **847 lines across 4 files** and completed several important public-facing parts of the platform.
+[PR #70: add about, terms, and feedback pages](https://github.com/alphaonelabs/website/commit/ef4a165605a76f820e80f4a7c8da3e3c721d9489) added **847 lines across 4 files** and completed several important public-facing parts of the platform.
 
 The About page communicates Alpha One Labs' mission, values, history, and learner/teacher calls to action. The Terms page includes a structured policy layout with a sticky table of contents, section highlighting, privacy-related subsections, and anchor navigation. I also added a dedicated Feedback page with validation, optional contact details, live character count, success/reset states, and community contact links.
 
@@ -121,13 +121,13 @@ The feedback page is backed by `POST /api/feedback`. The API validates submissio
 
 ### 7. Authentication-state bug fix in Messages
 
-[PR #77: Fix Messages page auth state for logged-in users](https://github.com/alphaonelabs/learn/pull/77) was a focused production-quality fix. A signed-in user who had no messages could incorrectly see a sign-in prompt. I changed the page’s main content to require client-rendered authentication state, allowing authenticated users to see the correct empty state instead.
+[PR #77: Fix Messages page auth state for logged-in users](https://github.com/alphaonelabs/website/commit/5b15edde0ed93ac12ada5ae1c1639968592195f8) was a focused production-quality fix. A signed-in user who had no messages could incorrectly see a sign-in prompt. I changed the page’s main content to require client-rendered authentication state, allowing authenticated users to see the correct empty state instead.
 
 The change is only one line, but it reflects something I value in product work: small inconsistencies in an authenticated journey can make a system feel unreliable, and they are worth fixing.
 
 ### 8. Surveys: authoring, participation, analytics, encryption, and export
 
-The survey feature went through an initial closed implementation, [PR #74: Surveys System – Create, Participate & Analyze Surveys](https://github.com/alphaonelabs/learn/pull/74), followed by the final merged implementation, [PR #78: Add survey creation, submission, results analytics and response management](https://github.com/alphaonelabs/learn/pull/78).
+The survey feature went through an initial closed implementation, [PR #74: Surveys System – Create, Participate & Analyze Surveys](https://github.com/alphaonelabs/website/commit/7bd0d17d40c53dcede0d229c8ad28bc2ef29ed81), followed by the final merged implementation, [PR #78: Add survey creation, submission, results analytics and response management]([https://github.com/alphaonelabs/learn/pull/78](https://github.com/alphaonelabs/website/commit/6b0d90b3bac3cf89c14a23621f1dc47b7a4949c5)).
 
 PR #74 was a larger design and API exploration (**2,958 additions across 10 files**) with separate survey pages, modular backend code, migrations, validation, analytics, CSV export, and tests. The final merged PR #78 consolidated the required workflow into the platform and added **930 lines across 2 files**.
 
@@ -163,7 +163,7 @@ This PR still needs review and merge, and deployment requires the relevant Strip
 
 ### Virtual World: a deployable 3D learning foundation
 
-[PR #1: Initial virtual world project setup](https://github.com/alphaonelabs/virtual/pull/1) is open in the Virtual World repository. It introduces **3,865 lines across 22 files**.
+Initial virtual world project setup is open in the Virtual World repository. It introduces **3,865 lines across 22 files**.
 
 This is a separate TypeScript application built with Vite and Three.js. I configured development, production builds, preview, deployment, Cloudflare Workers via Wrangler, SPA asset serving, environment-based configuration, and setup documentation.
 
@@ -175,11 +175,11 @@ The result is a real deployable starting point: users can authenticate, enter th
 
 ### ScholarAI: an AI-assisted research workflow
 
-[PR #2: Project setup](https://github.com/alphaonelabs/scholarai/pull/2) is the open initial application PR for ScholarAI (**1,619 additions and 2 deletions across 7 files**). I built a Cloudflare Python Worker that exposes AI-backed capabilities for asking questions, paper summarization, literature discovery, and literature-review generation. The Worker includes input validation, CORS behavior, error responses, health checks, frontend serving, and static-asset fallback handling.
+Project setup is the open initial application PR for ScholarAI (**1,619 additions and 2 deletions across 7 files**). I built a Cloudflare Python Worker that exposes AI-backed capabilities for asking questions, paper summarization, literature discovery, and literature-review generation. The Worker includes input validation, CORS behavior, error responses, health checks, frontend serving, and static-asset fallback handling.
 
 The frontend supports PDF upload, browser-side text extraction, tabbed research workflows, drag-and-drop input, validation, loading states, and API-error handling. I configured Cloudflare Workers AI, static assets, compatibility settings, observability, and project documentation covering setup, development, deployment, APIs, contribution, and licensing.
 
-I also opened [PR #3: repository workflows](https://github.com/alphaonelabs/scholarai/pull/3), adding a pull-request template, a peer-review reminder workflow, and PR-title validation through GitHub Actions. These repository practices are important for a project that needs to be maintained by more than one contributor: clear PR descriptions, consistent titles, and review discipline make future changes easier to evaluate.
+I also opened a PR, adding a pull-request template, a peer-review reminder workflow, and PR-title validation through GitHub Actions. These repository practices are important for a project that needs to be maintained by more than one contributor: clear PR descriptions, consistent titles, and review discipline make future changes easier to evaluate.
 
 The ScholarAI PR needs its planned final update before merge. The foundation is working, but I consider the next stage-review, refinement, tests, and user feedback-essential before describing it as complete.
 
